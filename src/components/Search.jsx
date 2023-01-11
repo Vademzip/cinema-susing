@@ -12,14 +12,14 @@ class Search extends React.Component {
 
     handleChange = (event) => {
             this.setState(() => ({[event.target.name]: event.target.value}), () => {
-                this.props.searchFunc(this.state.search?this.state.search:'transformers', this.state.type)
+                this.props.searchFunc(this.state.search?this.state.search.trimEnd():'transformers', this.state.type)
             })
     }
 
     handleKey = (event) => {
         if (event.key === 'Enter') {
             if (this.state.search)
-                this.props.searchFunc(this.state.search, this.state.type)
+                this.props.searchFunc(this.state.search.trimEnd(), this.state.type)
         }
     }
 
