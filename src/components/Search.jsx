@@ -1,68 +1,66 @@
-import React from "react";
+import React, {useState} from "react";
 
-class Search extends React.Component {
-    constructor(props) {
-        super(props);
+const Search = (props) => {
+    const {searchFunc = Function.prototype} = props //На всякий случай
+    const [search, setSearch] = useState('')
+    const [type, setType] = useState('all')
+
+
+    const handleFilter = (event) => {
+        setType(event.target.value)
+        searchFunc(search ? search.trimEnd() : 'transformers', event.target.value)
     }
 
-    state = {
-        search: '',
-        type: 'all'
+    const handleChange = (event) => {
+        setSearch(event.target.value)
+        searchFunc(event.target.value ? event.target.value.trimEnd() : 'transformers', type)
     }
 
-    handleChange = (event) => {
-            this.setState(() => ({[event.target.name]: event.target.value}), () => {
-                this.props.searchFunc(this.state.search?this.state.search.trimEnd():'transformers', this.state.type)
-            })
-    }
-
-    handleKey = (event) => {
+    const handleKey = (event) => {
         if (event.key === 'Enter') {
-            if (this.state.search)
-                this.props.searchFunc(this.state.search.trimEnd(), this.state.type)
+            if (search)
+                searchFunc(search.trimEnd(), type)
         }
     }
 
-    render() {
-        return (
-            <div className="row">
-                <div className="input-field col s12">
-                    <input
-                        name='search'
-                        placeholder='search'
-                        type="search"
-                        className="validate"
-                        value={this.state.search}
-                        onChange={this.handleChange}
-                        onKeyDown={this.handleKey}
-                    />
-                    <div className="searchArea">
+    return (
+        <div className="row">
+            <div className="input-field col s12">
+                <input
+                    name='search'
+                    placeholder='search'
+                    type="search"
+                    className="validate"
+                    value={search}
+                    onChange={handleChange}
+                    onKeyDown={handleKey}
+                />
+                <div className="searchArea">
                             <span>
                             <label>
-                                <input name="type" type="radio" value='all' checked={this.state.type === 'all'}
-                                       onChange={this.handleChange}/>
+                                <input name="type" type="radio" value='all' checked={type === 'all'}
+                                       onChange={handleFilter}/>
                                 <span>All</span>
                             </label>
                         </span>
-                        <span>
+                    <span>
                             <label>
-                                <input name="type" type="radio" value='movie' checked={this.state.type === 'movie'}
-                                       onChange={this.handleChange}/>
+                                <input name="type" type="radio" value='movie' checked={type === 'movie'}
+                                       onChange={handleFilter}/>
                                 <span>Movie only</span>
                             </label>
                         </span>
-                        <span>
+                    <span>
                             <label>
-                                <input name="type" type="radio" value='series' checked={this.state.type === 'series'}
-                                       onChange={this.handleChange}/>
+                                <input name="type" type="radio" value='series' checked={type === 'series'}
+                                       onChange={handleFilter}/>
                                 <span>Series only</span>
                             </label>
                         </span>
-                    </div>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 
 }
 

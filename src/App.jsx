@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './App.css'
 import Header from "./layout/Header.jsx";
 import Footer from "./layout/Footer.jsx";
@@ -6,64 +6,64 @@ import Main from "./layout/Main.jsx";
 
 const API_KEY = import.meta.env.VITE_API_KEY
 
-export default class App extends React.Component {
+export default function App() {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            moviesList: [],
-            pageCount: 1,
-            currentPage: 1,
-            loading: true
-        }
-        // this.searchFunc = this.searchFunc.bind(this)
 
-    }
+    const [moviesList, setMovieList] = useState([{}])
+    const [pageCount, setPageCount] = useState(1)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [loading, setLoading] = useState(true)
 
-    async componentDidMount() {
-        let response = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=transformers`)
-        if (response.ok) {
-            let moviesList = await response.json()
-            this.setState({
-                moviesList: moviesList.Search,
-                pageCount: moviesList.totalResults,
-                loading: false
+    useEffect(() => {
+        fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=transformers`)
+            .then(response => response.json())
+            .then(data => {
+                setMovieList(data.Search)
+                setPageCount(data.totalResults)
+                setLoading(false)
             })
-        } else {
-            this.setState({loading:false})
-        }
-    }
+            .catch(
+                setLoading(false)
+            )
+    }, [])
 
-    searchFunc = (str, type) => {
-        this.setState({loading: true})
+
+    const searchFunc = (str, type) => {
+        setLoading(true)
         if (type === 'all') {
             fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${str}`)
                 .then(response => response.json())
-                .then(data => this.setState({moviesList: data.Search, pageCount: data.totalResults, loading: false}))
+                .then(data => {
+                    setMovieList(data.Search)
+                    setPageCount(data.totalResults)
+                    setLoading(false)
+                })
                 .catch(err => {
                     console.error(err)
-                    this.setState({loading:false})
+                    setLoading(false)
                 })
         } else {
             fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${str}&type=${type}`)
                 .then(response => response.json())
-                .then(data => this.setState({moviesList: data.Search, pageCount: data.totalResults, loading: false}))
+                .then(data => {
+                    setMovieList(data.Search)
+                    setPageCount(data.totalResults)
+                    setLoading(false)
+                })
                 .catch(err => {
                     console.error(err)
-                    this.setState({loading:false})
+                    setLoading(false)
                 })
         }
         // .then((data)=>{this.setState({moviesList : data.Search})})
     }
 
-
-    render() {
-        return <>
+    return (
+        <>
             <Header/>
-            <Main {...this.state} searchFunc={this.searchFunc}/>
+            <Main moviesList = {moviesList} pageCount = {pageCount} currentPage = {currentPage} loading = {loading} searchFunc={searchFunc}/>
             <Footer/>
-        </>;
-    }
+        </>)
 }
 
 
