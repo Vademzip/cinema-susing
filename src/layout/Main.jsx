@@ -9,7 +9,7 @@ function Main(props) {
             {props.loading ?
                 <Preloader/> :
                 props.moviesList ?
-                    <Movies movieList={props.moviesList} pageCount={props.pageCount} curPage={props.currentPage}/> :
+                    <Movies movieList={props.moviesList} pageCount={props.pageCount} curPage={props.currentPage} setNewPage={props.setNewPage}/> :
                     'Ничего не найдено'
             }
         </main>

@@ -16,7 +16,7 @@ function Movies(props) {
                 />)}
         </div>
         <div className='pages'>
-            {pages.map(pageNumber => <span key={pageNumber} onClick={() => {}} className='pageBtn'>{pageNumber}</span>)}
+            {pages.map(pageNumber => <span key={pageNumber} onClick={() => {props.setNewPage(pageNumber)}} className='pageBtn'>{pageNumber}</span>)}
         </div>
     </>
 }

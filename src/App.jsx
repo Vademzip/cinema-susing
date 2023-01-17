@@ -13,6 +13,38 @@ export default function App() {
     const [pageCount, setPageCount] = useState(1)
     const [currentPage, setCurrentPage] = useState(1)
     const [loading, setLoading] = useState(true)
+    const [currentSearch, setCurrentSearch] = useState('')
+    const [type, setType] = useState('all')
+    const setNewPage = (page) => {
+        setLoading(true)
+        if (type === 'all') {
+            fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${currentSearch}&page=${page}`)
+                .then(response => response.json())
+                .then(data => {
+                    setMovieList(data.Search)
+                    setPageCount(data.totalResults)
+                    setLoading(false)
+                    setCurrentPage(page)
+                })
+                .catch(err => {
+                    console.error(err)
+                    setLoading(false)
+                })
+        } else {
+            fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${currentSearch}&type=${type}&page=${page}`)
+                .then(response => response.json())
+                .then(data => {
+                    setMovieList(data.Search)
+                    setPageCount(data.totalResults)
+                    setLoading(false)
+                })
+                .catch(err => {
+                    console.error(err)
+                    setLoading(false)
+                })
+        }
+    }
+
 
     useEffect(() => {
         fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=transformers`)
@@ -37,6 +69,8 @@ export default function App() {
                     setMovieList(data.Search)
                     setPageCount(data.totalResults)
                     setLoading(false)
+                    setCurrentSearch(str)
+                    setType(type)
                 })
                 .catch(err => {
                     console.error(err)
@@ -49,6 +83,8 @@ export default function App() {
                     setMovieList(data.Search)
                     setPageCount(data.totalResults)
                     setLoading(false)
+                    setCurrentSearch(str)
+                    setType(type)
                 })
                 .catch(err => {
                     console.error(err)
@@ -61,7 +97,12 @@ export default function App() {
     return (
         <>
             <Header/>
-            <Main moviesList = {moviesList} pageCount = {pageCount} currentPage = {currentPage} loading = {loading} searchFunc={searchFunc}/>
+            <Main moviesList={moviesList}
+                  pageCount={pageCount}
+                  currentPage={currentPage}
+                  loading={loading}
+                  searchFunc={searchFunc}
+                  setNewPage={setNewPage}/>
             <Footer/>
         </>)
 }
