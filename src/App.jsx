@@ -18,7 +18,7 @@ export default function App() {
     const setNewPage = (page) => {
         setLoading(true)
         if (type === 'all') {
-            fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${currentSearch}&page=${page}`)
+            fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${currentSearch||'transformers'}&page=${page}`)
                 .then(response => response.json())
                 .then(data => {
                     setMovieList(data.Search)
@@ -37,6 +37,7 @@ export default function App() {
                     setMovieList(data.Search)
                     setPageCount(data.totalResults)
                     setLoading(false)
+                    setCurrentPage(page)
                 })
                 .catch(err => {
                     console.error(err)
@@ -71,6 +72,7 @@ export default function App() {
                     setLoading(false)
                     setCurrentSearch(str)
                     setType(type)
+                    setCurrentPage(1)
                 })
                 .catch(err => {
                     console.error(err)
@@ -85,6 +87,7 @@ export default function App() {
                     setLoading(false)
                     setCurrentSearch(str)
                     setType(type)
+                    setCurrentPage(1)
                 })
                 .catch(err => {
                     console.error(err)

@@ -51,8 +51,15 @@ main {
     height: 35px;
     transition: all 0.1s ease-in-out;
 }
+.active{
+    background-color: #bbdce8;
+}
 
 .pageBtn:hover{
     cursor: pointer;
     background-color: #f8d5d5;
+}
+
+.active:hover{
+    background-color: #bbdce8;
 }
