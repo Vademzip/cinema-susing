@@ -7,7 +7,7 @@ main {
     padding: 1.5rem 0;
 }
 
-.movies{
+.movies {
     display: flex;
     flex-wrap: wrap;
 }
@@ -16,16 +16,16 @@ main {
     height: 530px;
 }
 
-.row .col.m7{
+.row .col.m7 {
     width: 322px;
 }
 
-.card-action{
+.card-action {
     display: flex;
     justify-content: space-between;
 }
 
-.card-image img{
+.card-image img {
     height: 400px;
 }
 
@@ -33,15 +33,16 @@ main {
     display: flex;
     column-gap: 15px;
     align-items: center;
+    justify-content: space-around;
 }
 
-.pages{
+.pages {
     display: flex;
     justify-content: center;
     column-gap: 10px;
 }
 
-.pageBtn{
+.pageBtn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,15 +52,55 @@ main {
     height: 35px;
     transition: all 0.1s ease-in-out;
 }
-.active{
+
+.active {
     background-color: #bbdce8;
 }
 
-.pageBtn:hover{
+.pageBtn:hover {
     cursor: pointer;
     background-color: #f8d5d5;
 }
 
-.active:hover{
+.active:hover {
     background-color: #bbdce8;
+}
+
+.End {
+    width: 85px;
+}
+
+.input-field {
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 0 0 10px 0 !important;
+}
+
+.input-field::placeholder {
+    color: white;
+}
+
+.validate {
+    background-color: aquamarine !important;
+    border-radius: 25px 25px 0 0 !important;
+    border-bottom: 0px !important;
+}
+
+.validate::placeholder {
+    color: white;
+    margin-left: 10px;
+    padding: 0 5px !important;
+}
+
+.validate:focus {
+    background-color: wheat !important;
+    border-radius: 25px 25px 0 0 !important;
+    overflow: hidden;
+}
+
+.card .card-content {
+    padding: 24px;
+    border-radius: 0 0 2px 2px;
+    height: 70px;
+    text-align: center;
 }

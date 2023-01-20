@@ -14,13 +14,13 @@ function Movies(props) {
         pages.push(i)
     }
 
-    for (let i = curPage; i < curPage + 4; i++) {
+    for (let i = curPage; i < curPage + 2; i++) {
         if (pages[i]) {
             rPage.push(pages[i])
         }
     }
 
-    for (let i = curPage - 2; (i > curPage - 6) && (i >= 0); i--) {
+    for (let i = curPage - 2; (i > curPage - 4) && (i >= 0); i--) {
         if (pages[i]) {
             lPage.unshift(pages[i])
         }
@@ -50,10 +50,10 @@ function Movies(props) {
         <div className='pages'>
             {
                 (curPage === 1 || findFirstPage(lPage,1)) ? null :
-                <span className='pageBtn' onClick={() => {
+                <span className='pageBtn End' onClick={() => {
                 props.setNewPage(1)
                 }
-                }>&lt;</span>
+                }>В начало</span>
             }
             {
                 lPage.map(pageNumber => <span key={pageNumber} onClick={() => {
@@ -72,10 +72,10 @@ function Movies(props) {
             }
             {
                 (curPage === pagesCount || findFirstPage(rPage,pagesCount)) ? null :
-                    <span className='pageBtn' onClick={() => {
+                    <span className='pageBtn End' onClick={() => {
                         props.setNewPage(pagesCount)
                     }
-                    }>&gt;</span>
+                    }>В конец</span>
             }
         </div>
     </>

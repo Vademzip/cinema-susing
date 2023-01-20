@@ -8,7 +8,13 @@ function Movie(props) {
         <div className="col s12 m7">
             <div className="card">
                 <div className="card-image">
-                    <a href={filmLink} target='_blank'><img src={props.Poster}/></a>
+                    <a href={filmLink} target='_blank'>
+                        {Poster !== 'N/A' ?
+                            <img src={props.Poster}/>
+                            :
+                            <img src={`https://via.placeholder.com/900x600?text=${Title}`}/>
+                        }
+                    </a>
                 </div>
                 <div className="card-content">
                     {props.Title}

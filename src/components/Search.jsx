@@ -28,7 +28,7 @@ const Search = (props) => {
             <div className="input-field col s12">
                 <input
                     name='search'
-                    placeholder='search'
+                    placeholder='Поиск'
                     type="search"
                     className="validate"
                     value={search}
