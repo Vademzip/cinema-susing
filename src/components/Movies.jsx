@@ -26,8 +26,8 @@ function Movies(props) {
         }
     }
 
-    function findFirstPage (array, number) {
-        for (let i = 0; i < array.length; i++){
+    function findFirstPage(array, number) {
+        for (let i = 0; i < array.length; i++) {
             if (array[i] === number)
                 return number
         }
@@ -49,31 +49,42 @@ function Movies(props) {
         </div>
         <div className='pages'>
             {
-                (curPage === 1 || findFirstPage(lPage,1)) ? null :
-                <span className='pageBtn End' onClick={() => {
-                props.setNewPage(1)
-                }
-                }>В начало</span>
+                (curPage === 1 || findFirstPage(lPage, 1)) ? null :
+                    <span className='pageBtn End' onClick={() => {
+                        props.setNewPage(1)
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        } )                    }
+                    }>В начало</span>
             }
             {
                 lPage.map(pageNumber => <span key={pageNumber} onClick={() => {
                     props.setNewPage(pageNumber)
-                }} className='pageBtn'>{pageNumber}</span>)
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    } )                }} className='pageBtn'>{pageNumber}</span>)
             }
             {
-                <span onClick={() => {
-                    props.setNewPage(curPage)
-                }} className='pageBtn active'>{curPage}</span>
+                <span className='pageBtn active'>{curPage}</span>
             }
             {
                 rPage.map(pageNumber => <span key={pageNumber} onClick={() => {
                     props.setNewPage(pageNumber)
-                }} className='pageBtn'>{pageNumber}</span>)
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    } )                }} className='pageBtn'>{pageNumber}</span>)
             }
             {
-                (curPage === pagesCount || findFirstPage(rPage,pagesCount)) ? null :
+                (curPage === pagesCount || findFirstPage(rPage, pagesCount)) ? null :
                     <span className='pageBtn End' onClick={() => {
                         props.setNewPage(pagesCount)
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        } )
                     }
                     }>В конец</span>
             }
